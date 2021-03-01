@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -7,27 +8,40 @@
     </title>
 </head>
 
-<body style="text-align:center;">
+<body style="text-align:center;" onload="operatingSytem()">
 
     <h1 style="color:green;">OS-Detector</h1>
 
-    <button ondblclick="operatingSytem()">
-        Double Click Me to Return Operating System Name
-    </button>
-
     <p id="OS"></p>
+    
+    <input value="" id="usman" readonly>
 
     <!-- Script to display the OS name -->
     <script>
         function operatingSytem() {
             var OSName = "Unknown OS";
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
             if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
             if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
             if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
+            
+             if (/windows phone/i.test(userAgent)) {
+        OSName = "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+        OSName = "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        OSName = "iOS";
+    }
 
             // Display the OS name 
             document.getElementById("OS").innerHTML = OSName;
+            document.getElementById("usman").value = OSName;
         } 
     </script>
 
